@@ -5,20 +5,20 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 ## API Endpoints
 #### Products
-- Index 
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products 
-- [OPTIONAL] Products by category (args: product category)
+- Index: GET `/products`
+- Show: GET   `/products/:id`
+- Create [token required]: POST `/products/`
+- [OPTIONAL] Top 5 most popular products GET `/products?popular=true&limit=5`
+- [OPTIONAL] Products by category (args: product category) GET `/products?popular=true&limit=5`
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- Index [token required] GET `/users/`
+- Show [token required] GET `/users/:id`
+- Create N[token required] POST `/users/`
 
 #### Orders
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Current Order by user (args: user id)[token required] `/orders?userID`
+- [OPTIONAL] Completed Orders by user (args: user id)[token required] `/orders/:id?userID`
 
 ## Data Shapes
 #### Product
@@ -27,12 +27,29 @@ These are the notes from a meeting with the frontend developer that describe wha
 - price
 - [OPTIONAL] category
 
+``` sql
+CREATE TABLE product (
+        id INT PRIMARY KEY,
+        name VARCHAR(255),
+        price FLOAT,
+        category VARCHAR(255)
+    )
+```
+
 #### User
 - id
 - firstName
 - lastName
 - password
 
+``` sql
+CREATE TABLE user (
+        id INT PRIMARY KEY,
+        firstName VARCHAR(255),
+        lastName VARCHAR(255),
+        password VARCHAR(255)
+    )
+```
 #### Orders
 - id
 - id of each product in the order
@@ -40,3 +57,27 @@ These are the notes from a meeting with the frontend developer that describe wha
 - user_id
 - status of order (active or complete)
 
+
+``` sql
+CREATE TYPE order_status AS ENUM ('active', 'complete');
+
+CREATE TABLE order (
+        id INT PRIMARY KEY,
+        user_id INT,
+        status order_status
+    )
+
+CREATE TABLE order_product (
+    id BIGINT PRIMARY KEY,
+    order_id INT,
+    product_id INT,
+    quantity INT,
+    CONSTRAINT fk_order_id
+      FOREIGN KEY(order_id)
+	  REFERENCES order(id)
+    CONSTRAINT fk_order_id
+      FOREIGN KEY(order_id)
+	  REFERENCES order(id)  
+)
+
+```
