@@ -31,8 +31,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 CREATE TABLE product (
         id INT PRIMARY KEY,
         name VARCHAR(255),
-        price FLOAT,
-        category VARCHAR(255)
+        price FLOAT
     )
 ```
 
@@ -43,7 +42,7 @@ CREATE TABLE product (
 - password
 
 ``` sql
-CREATE TABLE user (
+CREATE TABLE users (
         id INT PRIMARY KEY,
         firstName VARCHAR(255),
         lastName VARCHAR(255),
@@ -61,7 +60,7 @@ CREATE TABLE user (
 ``` sql
 CREATE TYPE order_status AS ENUM ('active', 'complete');
 
-CREATE TABLE order (
+CREATE TABLE orders (
         id INT PRIMARY KEY,
         user_id INT,
         status order_status

@@ -1,17 +1,17 @@
 import { Pool } from "pg";
 
 const {
-    DB_LOCATION,
-    DB_USER,
-    DB_PASSWORD,
-    DB_NAME,
+    POSTGRES_LOCATION,
+    POSTGRES_USER,
+    POSTGRES_PASSWORD,
+    POSTGRES_NAME,
 } = process.env;
 
 const db = new Pool({
-    host: DB_LOCATION,
-    user: DB_USER,
-    password: DB_PASSWORD,
-    database: DB_NAME
+    host: POSTGRES_LOCATION,
+    user: POSTGRES_USER,
+    password: POSTGRES_PASSWORD,
+    database: POSTGRES_NAME
 });
 
 export default db;

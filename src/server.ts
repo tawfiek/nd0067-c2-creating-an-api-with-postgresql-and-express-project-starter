@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import db from './config/db';
 
 dotenv.config();
 
