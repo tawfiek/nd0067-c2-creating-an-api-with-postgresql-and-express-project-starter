@@ -52,3 +52,47 @@ Add JWT functionality as shown in the course. Make sure that JWTs are required f
 Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
 
 Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+
+# Configure and run the application.
+
+## Dependencies
+
+ 1. To install all dependencies needed for the server to run.
+
+    ``` bash
+    yarn install
+    ```
+
+2. Copy `.env.example` file to new `.env` file and fill all your environment secrets.
+
+## Database
+
+1. Copy file `database.example.json` to new file `database.json` and add your database configuration in this file.
+
+2. To add all tables and constrains require run
+
+```bash
+yarn db-migration
+```
+
+## Build & Run
+
+To run the server in for development run
+
+```bash
+yarn watch
+```
+This will run the application in watch mode, this will wait if any change happens in the application files that will trigger to build the application and run it again.
+
+To build the server run
+
+``` bash
+yarn tsc
+```
+This will generate `dist/` directory in the root folder of the application and you can run the server with running
+
+``` bash
+yarn start
+```
+
+This will run the server on port 3000.
