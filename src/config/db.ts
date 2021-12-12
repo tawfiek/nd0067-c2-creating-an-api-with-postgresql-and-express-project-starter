@@ -1,5 +1,7 @@
+import dotenv from 'dotenv';
 import { Pool } from 'pg';
 
+dotenv.config();
 const { POSTGRES_LOCATION, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_NAME } =
     process.env;
 

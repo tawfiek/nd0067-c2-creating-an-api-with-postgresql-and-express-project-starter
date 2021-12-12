@@ -1,10 +1,7 @@
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
 import router from './routes';
 import { errorHandler, logger } from './middleware/app';
-
-dotenv.config();
 
 const app: express.Application = express();
 const address: string = '0.0.0.0:3000';

@@ -1,0 +1,2 @@
+ALTER TABLE IF EXISTS public.products
+    ALTER COLUMN id DROP IDENTITY;
