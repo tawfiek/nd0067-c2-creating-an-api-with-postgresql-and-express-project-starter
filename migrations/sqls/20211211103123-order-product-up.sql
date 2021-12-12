@@ -11,5 +11,5 @@ CREATE TABLE  IF NOT EXISTS order_product (
 
     CONSTRAINT fk_product_id
       FOREIGN KEY(product_id)
-      REFERENCES product(id)
+      REFERENCES products(id)
 );
