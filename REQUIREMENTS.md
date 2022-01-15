@@ -12,14 +12,13 @@ These are the notes from a meeting with the frontend developer that describe wha
 - [OPTIONAL] Products by category (args: product category) GET `/products?popular=true&limit=5`
 
 #### Users
-- Index [token required] GET `/users/`
+- IndT `ex [token required] GE/users/`
 - Show [token required] GET `/users/:id`
 - Create N[token required] POST `/users/`
 
 #### Orders
-- Current Order by user (args: user id)[token required] `/orders?userID`
-- [OPTIONAL] Completed Orders by user (args: user id)[token required] `/orders/:id?userID`
-
+- Current Order by user (args: user id)[token required] `GET /orders?userID`
+- [OPTIONAL] Completed Orders by user (args: user id in body and order id in path)[token required] `PUT /orders/:id`
 ## Data Shapes
 #### Product
 -  id
