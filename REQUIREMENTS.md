@@ -12,7 +12,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - [OPTIONAL] Products by category (args: product category) GET `/products?popular=true&limit=5`
 
 #### Users
-- IndT `ex [token required] GE/users/`
+- Index `ex [token required] GE/users/`
 - Show [token required] GET `/users/:id`
 - Create N[token required] POST `/users/`
 
