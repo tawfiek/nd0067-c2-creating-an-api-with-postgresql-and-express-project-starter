@@ -20,3 +20,20 @@ export async function addNewOrder(
         next(e);
     }
 }
+
+
+export async function getOrdersForUser (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<any> {
+    try {
+        const { id } = res.locals.user
+        const orders = await OrderService.getOrdersByUserID(id);
+
+        return res.status(200).json({orders, success: true});
+
+    } catch (e) {
+        next(e);
+    }
+}

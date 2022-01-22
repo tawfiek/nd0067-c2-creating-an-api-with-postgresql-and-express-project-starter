@@ -30,25 +30,27 @@ export class OrderService {
 
     public static async getOrdersByUserID(userID: number): Promise<Order[]> {
         try {
+            console.log('#DEBUG USERID ', userID);
+            
             const conn = await Client.connect();
-            const query = 'SELECT * FROM products WHERE id = $1';
+            const query = `
+                SELECT
+                    orders.id as orderID,
+                    users.first_name as userFirstName,
+                    users.last_name as userLastName,
+                    orders.order_status as orderStatus
+                FROM
+                    orders LEFT JOIN users ON orders.user_id = users.id
+                    WHERE users.id = $1;
+            `;
+
             const result = await conn.query(query, [userID]);
             conn.release();
 
-            return result.rows.map(OrderService.parseOrder);
+            return result.rows as any as Order[];
         } catch (e) {
             throw new Error(`Can not index products ${e}`);
         }
-    }
-
-    private static parseOrder(order: any): Order {
-        return {
-            id: order.id,
-            orderStatus: order.order_status,
-            userFirstName: order.first_name,
-            userID: order.user_id,
-            userLastName: order.last_name,
-        };
     }
 
     private static buildQueryToAddOrder(
