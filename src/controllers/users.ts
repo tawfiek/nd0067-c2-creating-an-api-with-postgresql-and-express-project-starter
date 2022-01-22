@@ -2,11 +2,11 @@ import bcrypt from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from '../@types/users';
-import { UserService} from '../models/users';
+import { UserService } from '../models/users';
 
-const {BCRYPT_ROUNDS, TOKEN_SECRET} = process.env;
+const { BCRYPT_ROUNDS, TOKEN_SECRET } = process.env;
 
-export async function signUp (req: Request, res: Response, next: NextFunction) {
+export async function signUp(req: Request, res: Response, next: NextFunction) {
     try {
         const userData: User = req.body;
         const hashedPassword = await hashPassword(userData.password);
@@ -14,47 +14,57 @@ export async function signUp (req: Request, res: Response, next: NextFunction) {
         userData.password = hashedPassword;
         await UserService.create(userData);
 
-        return res.status(201).json({success: true});
+        return res.status(201).json({ success: true });
     } catch (e) {
         return next(e);
     }
 }
 
-
-export async function login (req: Request, res: Response, next: NextFunction) {
+export async function login(req: Request, res: Response, next: NextFunction) {
     try {
-        const {username, password} = req.body;
+        const { username, password } = req.body;
 
         const userFromDB = await UserService.getUserData(username);
 
         console.log('#DEBUG user ', userFromDB);
-        
+
         if (!userFromDB) {
-            return res.status(401).json({message: 'Invalid Username or Password'});
+            return res
+                .status(401)
+                .json({ message: 'Invalid Username or Password' });
         }
 
-        const isValidPassword = await validatePassword(password, userFromDB.password);
+        const isValidPassword = await validatePassword(
+            password,
+            userFromDB.password
+        );
 
         console.log('#DEBUG compare ', isValidPassword);
-        
+
         if (!isValidPassword) {
-            return res.status(401).json({message: 'Invalid Username or Password'});
+            return res
+                .status(401)
+                .json({ message: 'Invalid Username or Password' });
         }
 
         const token = jwt.sign(userFromDB, TOKEN_SECRET as string);
 
-        return res.status(200).json({token});
+        return res.status(200).json({ token });
     } catch (e) {
         next(e);
     }
 }
 
-export async function getUserData (req: Request, res: Response, next: NextFunction) {
+export async function getUserData(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
     try {
         const userID: number = +req.params.userID;
 
         console.log('#DEBUG userID ', userID);
-        
+
         if (isNaN(userID)) {
             return res.status(400).json({
                 message: 'User ID is not valid',
@@ -71,8 +81,7 @@ export async function getUserData (req: Request, res: Response, next: NextFuncti
     }
 }
 
-
-async function hashPassword (password: string): Promise<string> {
+async function hashPassword(password: string): Promise<string> {
     if (!BCRYPT_ROUNDS) {
         throw new Error('Missing BCRYPT_ROUNDS');
     }
@@ -80,11 +89,13 @@ async function hashPassword (password: string): Promise<string> {
     const salt = await bcrypt.genSalt(+BCRYPT_ROUNDS as number);
 
     console.log('#DEBUG slat: ', salt);
-    
+
     return bcrypt.hashSync(password, salt);
 }
 
-
-async function validatePassword (plainPassword: string, password:string): Promise<boolean> {
-    return bcrypt.compare(plainPassword, password)
+async function validatePassword(
+    plainPassword: string,
+    password: string
+): Promise<boolean> {
+    return bcrypt.compare(plainPassword, password);
 }

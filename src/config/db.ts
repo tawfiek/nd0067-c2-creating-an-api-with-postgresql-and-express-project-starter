@@ -6,10 +6,10 @@ const { POSTGRES_LOCATION, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_NAME } =
     process.env;
 
 const db = new Pool({
-    host: POSTGRES_LOCATION,
-    user: POSTGRES_USER,
-    password: POSTGRES_PASSWORD,
     database: POSTGRES_NAME,
+    host: POSTGRES_LOCATION,
+    password: POSTGRES_PASSWORD,
+    user: POSTGRES_USER,
 });
 
 export default db;
