@@ -1,5 +1,7 @@
-CREATE TABLE IF NOT EXISTS products (
-        id INT PRIMARY KEY,
-        name VARCHAR(255),
-        price FLOAT
-    );
+
+CREATE TABLE "public"."products" (
+	"id" serial,
+	"name" varchar NOT NULL,
+	"price" int4 NOT NULL,
+	PRIMARY KEY ("id")
+);

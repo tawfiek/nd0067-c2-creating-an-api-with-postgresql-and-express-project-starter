@@ -11,6 +11,6 @@ export async function authentication (req: Request, res: Response, next: NextFun
 
         return next();
     } catch (e) {
-        return res.status(401).json({message: 'Can authenticate the user '});
+        return res.status(401).json({message: 'You are not authenticated'});
     }
 }

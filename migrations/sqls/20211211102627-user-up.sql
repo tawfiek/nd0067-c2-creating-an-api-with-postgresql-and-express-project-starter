@@ -1,6 +1,8 @@
-CREATE TABLE IF NOT EXISTS users (
-        id INT PRIMARY KEY,
-        first_name VARCHAR(255),
-        last_name VARCHAR(255),
-        password VARCHAR(255)
-    );
+CREATE TABLE IF NOT EXISTS "users" (
+	"id" serial,
+	"username" varchar NOT NULL,
+	"first_name" varchar NOT NULL,
+	"last_name" varchar NOT NULL,
+	"password" varchar NOT NULL,
+	PRIMARY KEY ("id")
+);

@@ -1,9 +1,13 @@
-CREATE TABLE IF NOT EXISTS orders (
-        id INT PRIMARY KEY,
-        user_id INT,
-        order_status VARCHAR(255),
+CREATE TABLE "public"."orders" (
+	"id" serial,
+	"user_id" int4 NOT NULL,
+	"order_status" int4 NOT NULL,
+	PRIMARY KEY ("id")
+);
 
-      CONSTRAINT fk_user_id
-        FOREIGN KEY(user_id)
-        REFERENCES users(id)
-    );
+
+ALTER TABLE "public"."orders"
+	ADD FOREIGN KEY ("user_id") REFERENCES "public"."users" ("id") ON
+			UPDATE
+				RESTRICT ON DELETE RESTRICT;
+        

@@ -1,13 +1,7 @@
+import { Order } from '../@types/order';
 import Client from '../config/db';
 
 export const DEFAULT_STATUS = 'pending';
-export type Order = {
-    id: number,
-    userFirstName: string,
-    userLastName: string,
-    userID: number,
-    orderStatus: 'pending' | 'completed' | 'cancelled',
-}
 export class OrderService {
     public static async getOrdersByUserID(userID: number): Promise<Order[]> {
         try {

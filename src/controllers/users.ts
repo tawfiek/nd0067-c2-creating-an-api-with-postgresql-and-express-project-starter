@@ -1,21 +1,22 @@
 import bcrypt from 'bcrypt';
-import { NextFunction, Request, Response } from "express";
-import {User, UserService} from '../models/users';
+import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { User } from '../@types/users';
+import { UserService} from '../models/users';
 
-const {BCRYPT_ROUNDS, BCRYPT_SALT, TOKEN_SECRET} = process.env;
+const {BCRYPT_ROUNDS, TOKEN_SECRET} = process.env;
 
 export async function signUp (req: Request, res: Response, next: NextFunction) {
     try {
-        const userData = req.body;
-        const hashedPassword = hashPassword(userData.password);
+        const userData: User = req.body;
+        const hashedPassword = await hashPassword(userData.password);
 
         userData.password = hashedPassword;
         await UserService.create(userData);
 
         return res.status(201).json({success: true});
     } catch (e) {
-        next(e);
+        return next(e);
     }
 }
 
@@ -26,17 +27,21 @@ export async function login (req: Request, res: Response, next: NextFunction) {
 
         const userFromDB = await UserService.getUserData(username);
 
-        if (!userFromDB || !userFromDB.length) {
+        console.log('#DEBUG user ', userFromDB);
+        
+        if (!userFromDB) {
             return res.status(401).json({message: 'Invalid Username or Password'});
         }
 
-        const hashedPassword = hashPassword(password);
+        const isValidPassword = await validatePassword(password, userFromDB.password);
 
-        if (password !== hashedPassword) {
+        console.log('#DEBUG compare ', isValidPassword);
+        
+        if (!isValidPassword) {
             return res.status(401).json({message: 'Invalid Username or Password'});
         }
 
-        const token = jwt.sign(userFromDB[0], TOKEN_SECRET as string);
+        const token = jwt.sign(userFromDB, TOKEN_SECRET as string);
 
         return res.status(200).json({token});
     } catch (e) {
@@ -44,14 +49,42 @@ export async function login (req: Request, res: Response, next: NextFunction) {
     }
 }
 
-export function getUserData (req: Request, res: Response, next: NextFunction) {
+export async function getUserData (req: Request, res: Response, next: NextFunction) {
+    try {
+        const userID: number = +req.params.userID;
+
+        console.log('#DEBUG userID ', userID);
+        
+        if (isNaN(userID)) {
+            return res.status(400).json({
+                message: 'User ID is not valid',
+            });
+        }
+
+        const userData = await UserService.getUserDataByID(userID);
+
+        console.log('#DEBUG USER DATA ', userData);
+
+        return res.status(200).json(userData);
+    } catch (e) {
+        next(e);
+    }
 }
 
 
-function hashPassword (password: string): string {
-if (!BCRYPT_ROUNDS || !BCRYPT_SALT) {
-throw new Error('Missing BCRYPT_SALT or BCRYPT_ROUNDS');
+async function hashPassword (password: string): Promise<string> {
+    if (!BCRYPT_ROUNDS) {
+        throw new Error('Missing BCRYPT_ROUNDS');
+    }
+
+    const salt = await bcrypt.genSalt(+BCRYPT_ROUNDS as number);
+
+    console.log('#DEBUG slat: ', salt);
+    
+    return bcrypt.hashSync(password, salt);
 }
 
-return bcrypt.hashSync(password + BCRYPT_SALT, BCRYPT_ROUNDS as string);
+
+async function validatePassword (plainPassword: string, password:string): Promise<boolean> {
+    return bcrypt.compare(plainPassword, password)
 }

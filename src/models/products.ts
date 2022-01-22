@@ -1,11 +1,5 @@
+import { Product } from '../@types/product';
 import Client from '../config/db';
-
-export type Product = {
-    id?: number;
-    name: string;
-    price: number;
-};
-
 export class ProductService {
     public static async index(): Promise<Product[]> {
         try {
