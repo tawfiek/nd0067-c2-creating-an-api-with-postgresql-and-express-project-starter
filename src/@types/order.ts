@@ -3,5 +3,10 @@ export type Order = {
     userFirstName: string,
     userLastName: string,
     userID: number,
-    orderStatus: 'pending' | 'completed' | 'cancelled',
+    orderStatus?: 'pending' | 'completed' | 'cancelled',
+}
+
+export type OrderDTO = {
+    userID: number,
+    products: Array<{productID: number, quantity: number}>
 }

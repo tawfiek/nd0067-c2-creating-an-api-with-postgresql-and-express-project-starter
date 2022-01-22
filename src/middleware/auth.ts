@@ -7,8 +7,9 @@ export async function authentication (req: Request, res: Response, next: NextFun
     try {
         const token: string = req.headers['x-access-token'] as string;
 
-        jwt.verify(token, TOKEN_SECRET as string);
-
+        const user = jwt.verify(token, TOKEN_SECRET as string);
+        res.locals.user = user;
+        
         return next();
     } catch (e) {
         return res.status(401).json({message: 'You are not authenticated'});

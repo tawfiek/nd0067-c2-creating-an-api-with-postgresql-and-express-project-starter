@@ -5,9 +5,10 @@ CREATE TABLE "public"."orders" (
 	PRIMARY KEY ("id")
 );
 
+ALTER TABLE "public"."orders" ALTER COLUMN "order_status" SET DATA TYPE varchar;
+
 
 ALTER TABLE "public"."orders"
 	ADD FOREIGN KEY ("user_id") REFERENCES "public"."users" ("id") ON
 			UPDATE
 				RESTRICT ON DELETE RESTRICT;
-        
