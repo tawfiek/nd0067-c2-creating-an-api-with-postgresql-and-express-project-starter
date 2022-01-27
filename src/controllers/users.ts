@@ -26,8 +26,6 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
         const userFromDB = await UserService.getUserData(username);
 
-        console.log('#DEBUG user ', userFromDB);
-
         if (!userFromDB) {
             return res
                 .status(401)
@@ -38,8 +36,6 @@ export async function login(req: Request, res: Response, next: NextFunction) {
             password,
             userFromDB.password
         );
-
-        console.log('#DEBUG compare ', isValidPassword);
 
         if (!isValidPassword) {
             return res
@@ -63,8 +59,6 @@ export async function getUserData(
     try {
         const userID: number = +req.params.userID;
 
-        console.log('#DEBUG userID ', userID);
-
         if (isNaN(userID)) {
             return res.status(400).json({
                 message: 'User ID is not valid',
@@ -72,8 +66,6 @@ export async function getUserData(
         }
 
         const userData = await UserService.getUserDataByID(userID);
-
-        console.log('#DEBUG USER DATA ', userData);
 
         return res.status(200).json(userData);
     } catch (e) {
@@ -87,8 +79,6 @@ async function hashPassword(password: string): Promise<string> {
     }
 
     const salt = await bcrypt.genSalt(+BCRYPT_ROUNDS as number);
-
-    console.log('#DEBUG slat: ', salt);
 
     return bcrypt.hashSync(password, salt);
 }

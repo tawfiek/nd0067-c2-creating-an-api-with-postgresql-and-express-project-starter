@@ -13,9 +13,9 @@ app.use(router);
 app.use(errorHandler);
 
 app.get('/', (req: Request, res: Response) => {
-        res.send('Hello World!');
-    });
+    res.send('Hello World!');
+});
 
 app.listen(3000, () => {
-        console.log(`starting app on: ${address}`);
-    });
+    console.log(`starting app on: ${address}`);
+});

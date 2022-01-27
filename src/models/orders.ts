@@ -31,7 +31,7 @@ export class OrderService {
     public static async getOrdersByUserID(userID: number): Promise<Order[]> {
         try {
             console.log('#DEBUG USERID ', userID);
-            
+
             const conn = await Client.connect();
             const query = `
                 SELECT
