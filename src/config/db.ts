@@ -2,8 +2,12 @@ import dotenv from 'dotenv';
 import { Pool } from 'pg';
 
 dotenv.config();
-const { POSTGRES_LOCATION, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_NAME, ENV, POSTGRES_NAME_TEST } =
-    process.env;
+const { POSTGRES_LOCATION,
+    POSTGRES_USER,
+    POSTGRES_PASSWORD,
+    POSTGRES_NAME,
+    ENV,
+    POSTGRES_NAME_TEST } = process.env;
 
 let db: Pool;
 

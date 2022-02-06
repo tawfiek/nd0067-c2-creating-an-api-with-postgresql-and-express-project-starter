@@ -3,11 +3,11 @@ import Client from '../config/db';
 
 export const DEFAULT_STATUS = 'pending';
 export default class OrderService {
-    public static async addNewOrder(order: OrderDTO): Promise<void> {
+    public static async addNewOrder(order: OrderDTO): Promise<number> {
         try {
             const conn = await Client.connect();
             const orderQuery = `
-               INSERT INTO orders(order_status, user_id) VALUES  ($2, $1) RETURNING * ;
+               INSERT INTO orders(order_status, user_id) VALUES  ($2, $1) RETURNING id;
             `;
             const orderInstant = (
                 await conn.query(orderQuery, [order.userID, DEFAULT_STATUS])
@@ -22,7 +22,7 @@ export default class OrderService {
 
             conn.release();
 
-            return;
+            return orderInstant.id;
         } catch (e) {
             throw new Error(`[SERVICE] Can not add new order in DB: ${e}`);
         }
@@ -30,8 +30,6 @@ export default class OrderService {
 
     public static async getOrdersByUserID(userID: number): Promise<Order[]> {
         try {
-            console.log('#DEBUG USERID ', userID);
-
             const conn = await Client.connect();
             const query = `
                 SELECT

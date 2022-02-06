@@ -10,10 +10,11 @@
     {
       "name": "jasmine-spec-reporter#SpecReporter",
       "options": {
-        "displayStacktrace": "all"
+        "displayStacktrace": "pretty",
+        "displaySuccessful": true
       }
     }
   ],
-  "stopSpecOnExpectationFailure": false,
-  "random": true
+  "stopSpecOnExpectationFailure": true,
+  "random": false
 }
