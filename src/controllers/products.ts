@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Product } from '../@types/product';
-import { ProductService } from '../models/products';
+import ProductService from '../models/products';
 
 export async function getAllProducts(
     req: Request,

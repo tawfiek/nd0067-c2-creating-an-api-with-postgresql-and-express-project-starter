@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { Order, OrderDTO } from '../@types/order';
-import { OrderService } from '../models/orders';
+import OrderService from '../models/orders';
 
 export async function addNewOrder(
     req: Request,

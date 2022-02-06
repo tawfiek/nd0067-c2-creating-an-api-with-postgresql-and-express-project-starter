@@ -1,21 +1,28 @@
 import { User } from '../@types/users';
 import Client from '../config/db';
 
-export class UserService {
-    public static async create(user: User): Promise<User> {
+export default class UserService {
+    public static async create(user: User): Promise<Partial<User>> {
         try {
             const conn = await Client.connect();
             const query = `INSERT INTO users (first_name, last_name, password, username)
-                        VALUES ($1, $2, $3, $4) RETURNING *`;
+                        VALUES ($1, $2, $3, $4) RETURNING first_name, last_name, username`;
             const values = [
                 user.firstName,
                 user.lastName,
                 user.password,
                 user.username,
             ];
+
             const result = await conn.query(query, values);
             conn.release();
-            return result.rows[0];
+            const dbUser = result.rows[0];
+
+            return {
+                firstName: dbUser.first_name,
+                lastName: dbUser.last_name,
+                username: dbUser.username,
+            }
         } catch (e) {
             throw new Error(`Can not creat new user ${e}`);
         }
@@ -28,24 +35,38 @@ export class UserService {
 
             const result = await conn.query(query, [userName]);
             conn.release();
-            return result.rows[0];
+            const dbUser = result.rows[0];
+
+            return {
+                firstName: dbUser.first_name,
+                lastName: dbUser.last_name,
+                password: dbUser.password,
+                username: dbUser.username,
+            }
         } catch (e) {
             throw new Error(`Can not index products ${e}`);
         }
     }
 
-    public static async getUserDataByID(id: number): Promise<User> {
+    public static async getUserDataByID(id: number): Promise<Partial<User>> {
         try {
             const conn = await Client.connect();
             const query = `SELECT
-                first_name as firstName,
-                last_name as lastName,
+                first_name,
+                last_name,
                 username
              FROM users WHERE id=$1`;
 
             const result = await conn.query(query, [id]);
             conn.release();
-            return result.rows[0];
+
+            const dbUser = result.rows[0];
+
+            return {
+                firstName: dbUser.first_name,
+                lastName: dbUser.last_name,
+                username: dbUser.username,
+            }
         } catch (e) {
             throw new Error(`Can not index products ${e}`);
         }

@@ -5,5 +5,13 @@
     "database": "db_name",
     "user": "db_user",
     "password": "password"
+  },
+
+  "test": {
+    "driver": "pg",
+    "host": "127.0.0.1",
+    "database": "db_name",
+    "user": "db_user",
+    "password": "password"
   }
 }

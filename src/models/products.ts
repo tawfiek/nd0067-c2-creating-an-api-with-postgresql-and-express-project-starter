@@ -1,6 +1,6 @@
 import { Product } from '../@types/product';
 import Client from '../config/db';
-export class ProductService {
+export default class ProductService {
     public static async index(): Promise<Product[]> {
         try {
             const conn = await Client.connect();

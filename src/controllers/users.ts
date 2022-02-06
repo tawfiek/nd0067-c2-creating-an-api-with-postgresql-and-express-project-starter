@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from '../@types/users';
-import { UserService } from '../models/users';
+import UserService from '../models/users';
 
 const { BCRYPT_ROUNDS, TOKEN_SECRET } = process.env;
 

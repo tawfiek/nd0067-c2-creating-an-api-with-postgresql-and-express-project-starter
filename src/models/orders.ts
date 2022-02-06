@@ -2,7 +2,7 @@ import { Order, OrderDTO } from '../@types/order';
 import Client from '../config/db';
 
 export const DEFAULT_STATUS = 'pending';
-export class OrderService {
+export default class OrderService {
     public static async addNewOrder(order: OrderDTO): Promise<void> {
         try {
             const conn = await Client.connect();
