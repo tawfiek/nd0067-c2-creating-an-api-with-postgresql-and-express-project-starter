@@ -22,7 +22,7 @@ describe ('Test product model', () => {
 
     it ('Should Create new product successfully ', async () => {
         const product: Product = {
-            name: 'Product 1',
+            name: 'Product 2',
             price: 100,
         };
 

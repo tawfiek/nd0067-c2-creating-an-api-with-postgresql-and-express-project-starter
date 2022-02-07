@@ -47,7 +47,7 @@ export default class OrderService {
 
             return result.rows as any as Order[];
         } catch (e) {
-            throw new Error(`Can not index products ${e}`);
+            throw new Error(`[ORDERS_MODEL] ${e}`);
         }
     }
 

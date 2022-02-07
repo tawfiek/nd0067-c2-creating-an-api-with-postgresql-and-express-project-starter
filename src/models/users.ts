@@ -35,7 +35,10 @@ export default class UserService {
 
             const result = await conn.query(query, [userName]);
             conn.release();
+
             const dbUser = result.rows[0];
+
+            if (!dbUser) { return null }
 
             return {
                 firstName: dbUser.first_name,
@@ -44,7 +47,7 @@ export default class UserService {
                 username: dbUser.username,
             }
         } catch (e) {
-            throw new Error(`Can not index products ${e}`);
+            throw new Error(`[USER_MODEL] ${e}`);
         }
     }
 
@@ -62,13 +65,15 @@ export default class UserService {
 
             const dbUser = result.rows[0];
 
+            if (!dbUser) { return null }
+
             return {
                 firstName: dbUser.first_name,
                 lastName: dbUser.last_name,
                 username: dbUser.username,
             }
         } catch (e) {
-            throw new Error(`Can not index products ${e}`);
+            throw new Error(`[USERS_MODEL] ${e}`);
         }
     }
 }

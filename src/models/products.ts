@@ -9,7 +9,7 @@ export default class ProductService {
             conn.release();
             return result.rows;
         } catch (e) {
-            throw new Error(`Can not index products ${e}`);
+            throw new Error(`[PRODUCTS_MODEL] ${e}`);
         }
     }
 
@@ -34,7 +34,7 @@ export default class ProductService {
             conn.release();
             return result.rows[0];
         } catch (e) {
-            throw new Error(`Can not index products ${e}`);
+            throw new Error(`[PRODUCTS_MODEL] ${e}`);
         }
     }
 }

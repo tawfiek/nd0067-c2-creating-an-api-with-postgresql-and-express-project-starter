@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
-    "test": "db-migrate --env test up && yarn build && ENV=test jasmine --config=jasmine.json && db-migrate --env test down",
+    "test": "db-migrate up all --env test  && yarn build && ENV=test jasmine --config=jasmine.json ; db-migrate reset --env test",
     "build": "tsc",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "prettier": "prettier --write './src/**/*.ts'"
@@ -39,7 +39,7 @@
     "jasmine-ts": "^0.4.0",
     "nodemon": "^2.0.15",
     "prettier": "2.5.0",
-    "supertest": "^6.1.6",
+    "supertest": "^6.2.2",
     "ts-node": "^10.4.0",
     "tsc": "^2.0.3",
     "tsc-watch": "^4.5.0",
