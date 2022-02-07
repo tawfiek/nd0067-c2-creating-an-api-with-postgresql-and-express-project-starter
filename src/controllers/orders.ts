@@ -9,7 +9,7 @@ export async function addNewOrder(
 ) {
     try {
         const order: OrderDTO = {
-            products: req.body.products,
+            products: req.body,
             userID: res.locals.user.id,
         };
 

@@ -53,8 +53,6 @@ describe ('Test products endpoints', () => {
 
         const response = await request.get(`/products`).set('x-access-token', token);
 
-        console.log('#DEBUG ', response.body);
-
         expect(response.status).toBe(200);
         expect(response.body.success).toBe(true);
         expect(response.body.products).toBeInstanceOf(Array);

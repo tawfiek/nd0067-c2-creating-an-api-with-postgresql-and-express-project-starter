@@ -24,9 +24,7 @@ describe ('Test orders ', () => {
 
         await request.post('/products').set('x-access-token', token).send(product);
 
-        const order = {
-            products: [{ productID: 1, quantity: 1 }],
-        }
+        const order =   [{ productID: 1, quantity: 1 }];
 
         const response = await request.post('/orders').set('x-access-token', token).send(order);
 
@@ -34,7 +32,7 @@ describe ('Test orders ', () => {
         expect(response.body.success).toBe(true);
     });
 
-    it('SHould get orders added by the user ', async () => {
+    it('Should get orders added by the user ', async () => {
         const token = await getUserToken(user);
         const product: Product = {
             name: 'Product for order test',
