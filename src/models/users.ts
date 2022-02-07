@@ -41,6 +41,7 @@ export default class UserService {
             if (!dbUser) { return null }
 
             return {
+                id: dbUser.id,
                 firstName: dbUser.first_name,
                 lastName: dbUser.last_name,
                 password: dbUser.password,
