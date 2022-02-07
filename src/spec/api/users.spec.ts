@@ -1,6 +1,7 @@
 import supertest from 'supertest';
 import { User } from '../../@types/users';
 import app from '../../server';
+import { loginUser, signup } from '../helpers/auth';
 
 const request = supertest(app);
 
@@ -65,12 +66,3 @@ describe ('Test users endpoints', () => {
         expect(response.body).toBeDefined();
     });
 });
-
-
-function loginUser (username: string, password: string): Promise<any> {
-    return request.post('/users/login').send({ username, password });
-}
-
-function signup (body: User): Promise<any> {
-    return request.post('/users/signup').send(body);
-}
