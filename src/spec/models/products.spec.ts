@@ -1,5 +1,5 @@
-import { Product } from "../../@types/product";
-import ProductService from "../../models/products";
+import { Product } from '../../@types/product';
+import ProductService from '../../models/products';
 
 describe ('Test product model', () => {
     it ('Index function must be there in the module ', () => {
