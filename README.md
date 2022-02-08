@@ -84,12 +84,14 @@ To run the server in for development run
 ```bash
 yarn watch
 ```
+ - this will make the application listen on port `3000`
+
 This will run the application in watch mode, this will wait if any change happens in the application files that will trigger to build the application and run it again.
 
 To build the server run
 
 ``` bash
-yarn tsc
+yarn build
 ```
 This will generate `dist/` directory in the root folder of the application and you can run the server with running
 
