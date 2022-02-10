@@ -100,3 +100,18 @@ yarn start
 ```
 
 This will run the server on port 3000.
+
+## Run Tests.
+
+To run the test you must add new database in your postgres server for testing.
+And then pass this new DB name into `POSTGRES_NAME_TEST` environment variable in `.env` file.
+
+Then add this DB information in your `database.json` file.
+
+After that please run
+
+``` bash
+yarn test
+```
+
+This command with run the migration, build the application run all test cases and then down the migration to the the DB in initial state again.

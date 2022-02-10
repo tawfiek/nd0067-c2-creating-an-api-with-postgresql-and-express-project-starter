@@ -58,8 +58,7 @@ export default class OrderService {
         const query = `
            	INSERT INTO order_product(order_id, product_id, quantity) VALUES
         `;
-        console.log('#DEBUG products ', products);
-        
+
         const values = products.reduce((value, prod) => {
             return (
                 value + `(${orderID}, ${prod.productID}, ${prod.quantity})\n`
