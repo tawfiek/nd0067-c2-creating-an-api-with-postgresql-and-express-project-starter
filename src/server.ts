@@ -13,8 +13,8 @@ app.use(logger);
 app.use(router);
 app.use(errorHandler);
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello World!');
+app.get('/health', (req: Request, res: Response) => {
+    res.status(200).send('OK');
 });
 
 app.listen(PORT, () => {
