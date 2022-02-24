@@ -4,13 +4,14 @@
   "description": "",
   "main": "server.ts",
   "scripts": {
-    "start": "node src/server.ts",
+    "start": "yarn build && node ./dist/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
     "test": "db-migrate up all --env test  && yarn build && ENV=test jasmine --config=jasmine.json ; db-migrate reset --env test",
     "build": "tsc",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "prettier": "prettier --write './src/**/*.ts'"
   },
+  "engines": { "node" : "14.18.0" },
   "author": "Udacity",
   "license": "ISC",
   "dependencies": {
